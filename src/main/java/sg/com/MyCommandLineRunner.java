@@ -1,21 +1,19 @@
 package sg.com;
 
+import java.lang.reflect.Array;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.assertj.core.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import sg.com.account.IAccountRepos;
 import sg.com.account.User;
-import sg.com.task.ITaskRepos;
-import sg.com.task.Task;
-import sg.com.utils.CheckList;
-import sg.com.utils.Comment;
+import sg.com.item.IItemRepos;
+import sg.com.item.Item;
 import sg.com.utils.EStatus;
 import sg.com.utils.ETopicType;
 import sg.com.workspace.IWorkspaceRepo;
@@ -25,7 +23,7 @@ import sg.com.workspace.Workspace;
 public class MyCommandLineRunner implements CommandLineRunner{
 	@Autowired IAccountRepos accountRepo;
 	@Autowired IWorkspaceRepo workspaceRepo;
-	@Autowired ITaskRepos taskRepo;
+	@Autowired IItemRepos taskRepo;
 	
 	
 	@Override
@@ -84,27 +82,27 @@ public class MyCommandLineRunner implements CommandLineRunner{
 	}
 
 	public void createTask(){
-		Task t1 = new Task();
+		Item t1 = new Item();
 		t1.setTitle("Task1");
 		//t1.setDetail(detail); // base on ui design task does not have detail
 		//t1.setLocation(location); 
 		t1.setWsid("w1"); 
 		//t1.setType(ETopicType.TASK); should be handle by controller
-		List l1 = Arrays.asList("S1234567C");
+		List l1 = new ArrayList();
+		l1.add("S1234567C");
 		t1.setReceiver(l1);
 		t1.setStatus(EStatus.NEW);
 		t1.setDueDate(Date.from(Instant.now()));
-		t1.setTagType(ETopicType.ISSUE);
 		//t1.setTag();
 		t1.setAssignees(l1);
-		CheckList cl1 = new CheckList();
+	/*	CheckList cl1 = new CheckList();
 		cl1.setDescription("do somthing now");
 		cl1.setDone(false);
 		List l2 = Arrays.asList(cl1);
 		t1.setChecklist(l2);
 		Comment cm1 = new Comment("my comment");
 		List l3 = Arrays.asList(cm1);
-		t1.setComments(l3);
+		t1.setComments(l3);*/
 		
 	}
 	

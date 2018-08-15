@@ -1,4 +1,4 @@
-package sg.com.task;
+package sg.com.item;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,20 +17,20 @@ import sg.com.workspace.Workspace;
 public class TaskController {
 	
 	@Autowired 
-	ITaskRepos repos;
+	IItemRepos repos;
 	
 
 	@GetMapping
-	public List<Task> getAllTask(){
+	public List<Item> getAllTask(){
 		return repos.findAll();
 	}
 	@GetMapping("/{tid}")
-	public Optional<Task> getTask(@PathVariable("tid") String id){
+	public Optional<Item> getTask(@PathVariable("tid") String id){
 		return repos.findById(id);
 		
 	}
 	@GetMapping("/ws/{wsid}")
-	public List<Task> getTaskbyWsid(@PathVariable("wsid") String id){
+	public List<Item> getTaskbyWsid(@PathVariable("wsid") String id){
 		return repos.findByWsid(id);
 	}
 

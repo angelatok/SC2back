@@ -1,4 +1,4 @@
-package sg.com.task;
+package sg.com.item;
 
 import java.util.Date;
 import java.util.List;
@@ -17,7 +17,7 @@ import sg.com.utils.EStatus;
 import sg.com.utils.ETopicType;
 
 @Data
-public class Task {
+public class Item {
 	
 	@Id
 	private String id;
@@ -38,12 +38,11 @@ public class Task {
 	private List<String> receiver; //ic
 	private EStatus status; // New, Doing, Done
 	private Date DueDate;
-	private ETopicType tagType;
-	private String tag;	// ref id of incident and issue
+	private String refid;	// ref id of incident or issue or task 
 	
 	private List<String> assignees; //  ic of accountuser
 	private List<CheckList> checklist;
 	private List<Comment> comments;
-	
+	private EStatus levelOfIncident; // HML
 	
 }
