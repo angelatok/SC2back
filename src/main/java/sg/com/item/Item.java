@@ -7,7 +7,6 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.auditing.DateTimeProvider;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 
 import lombok.Data;
@@ -24,9 +23,9 @@ public class Item {
 	@CreatedBy
 	private String createdBy; // ic
 	@CreatedDate
-	private DateTimeProvider createDate;
+	private Date createdDate;
 	@LastModifiedDate
-	private DateTimeProvider modifiedDate;
+	private Date modifiedDate;
 	
 	private String title;
 	private String detail;
@@ -44,5 +43,13 @@ public class Item {
 	private List<CheckList> checklist;
 	private List<Comment> comments;
 	private EStatus levelOfIncident; // HML
+	
+	
+	public Item() {
+		super();
+		
+	}
+	
+	
 	
 }

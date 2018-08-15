@@ -1,10 +1,11 @@
 package sg.com;
 
-import java.lang.reflect.Array;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -14,8 +15,9 @@ import sg.com.account.IAccountRepos;
 import sg.com.account.User;
 import sg.com.item.IItemRepos;
 import sg.com.item.Item;
+import sg.com.utils.CheckList;
+import sg.com.utils.Comment;
 import sg.com.utils.EStatus;
-import sg.com.utils.ETopicType;
 import sg.com.workspace.IWorkspaceRepo;
 import sg.com.workspace.Workspace;
 
@@ -23,18 +25,19 @@ import sg.com.workspace.Workspace;
 public class MyCommandLineRunner implements CommandLineRunner{
 	@Autowired IAccountRepos accountRepo;
 	@Autowired IWorkspaceRepo workspaceRepo;
-	@Autowired IItemRepos taskRepo;
+	@Autowired IItemRepos itemRepo;
 	
 	
 	@Override
 	public void run(String... args) throws Exception {
 		accountRepo.deleteAll();
 		workspaceRepo.deleteAll();
-		taskRepo.deleteAll();
+		itemRepo.deleteAll();
 		
 		createUser();
 		createWorkspace();
 		createTask();
+		UpdateTask();
 	}
 	
 	public void createUser(){
@@ -95,15 +98,21 @@ public class MyCommandLineRunner implements CommandLineRunner{
 		t1.setDueDate(Date.from(Instant.now()));
 		//t1.setTag();
 		t1.setAssignees(l1);
-	/*	CheckList cl1 = new CheckList();
+		CheckList cl1 = new CheckList();
 		cl1.setDescription("do somthing now");
 		cl1.setDone(false);
 		List l2 = Arrays.asList(cl1);
 		t1.setChecklist(l2);
 		Comment cm1 = new Comment("my comment");
 		List l3 = Arrays.asList(cm1);
-		t1.setComments(l3);*/
-		
+		t1.setComments(l3);
+		itemRepo.save(t1);
+	}
+	public void UpdateTask(){
+		List<Item> list = itemRepo.findByTitle("Task1");
+		Item i = list.get(0);
+		i.setTitle("Task1a");
+		itemRepo.save(i);
 	}
 	
 	

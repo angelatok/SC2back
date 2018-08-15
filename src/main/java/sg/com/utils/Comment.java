@@ -9,9 +9,9 @@ import sg.com.audit.Audit;
 
 @Data
 public class Comment {
-	@CreatedBy
+	//@CreatedBy
 	private String createdBy;
-	@CreatedDate
+	//@CreatedDate
 	private DateTimeProvider createDate;
 	
 	private String comment;
