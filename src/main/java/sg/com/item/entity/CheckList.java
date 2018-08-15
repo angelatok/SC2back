@@ -1,4 +1,4 @@
-package sg.com.utils;
+package sg.com.item.entity;
 
 import lombok.Data;
 

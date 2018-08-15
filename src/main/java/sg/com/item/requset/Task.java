@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 
 import lombok.Data;
-import sg.com.utils.CheckList;
+import sg.com.item.entity.CheckList;
 
 @Data
 public class Task {

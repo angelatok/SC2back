@@ -14,10 +14,10 @@ import org.springframework.stereotype.Component;
 import sg.com.account.IAccountRepos;
 import sg.com.account.User;
 import sg.com.item.IItemRepos;
-import sg.com.item.Item;
-import sg.com.utils.CheckList;
-import sg.com.utils.Comment;
-import sg.com.utils.EStatus;
+import sg.com.item.entity.CheckList;
+import sg.com.item.entity.Comment;
+import sg.com.item.entity.EStatus;
+import sg.com.item.entity.Item;
 import sg.com.workspace.IWorkspaceRepo;
 import sg.com.workspace.Workspace;
 

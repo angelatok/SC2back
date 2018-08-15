@@ -1,4 +1,4 @@
-package sg.com.utils;
+package sg.com.item.entity;
 
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;

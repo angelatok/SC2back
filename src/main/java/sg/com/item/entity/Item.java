@@ -1,4 +1,4 @@
-package sg.com.item;
+package sg.com.item.entity;
 
 import java.util.Date;
 import java.util.List;
@@ -10,10 +10,6 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 
 import lombok.Data;
-import sg.com.utils.CheckList;
-import sg.com.utils.Comment;
-import sg.com.utils.EStatus;
-import sg.com.utils.ETopicType;
 
 @Data
 public class Item {
