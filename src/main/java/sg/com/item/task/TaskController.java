@@ -13,9 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import sg.com.item.IItemRepos;
 import sg.com.item.Item;
+import sg.com.item.entity.CheckList;
 import sg.com.item.entity.Comment;
 import sg.com.item.task.request.CommentRequest;
+import sg.com.item.task.request.MemberRequest;
 import sg.com.item.task.request.TaskRequest;
+import sg.com.item.task.request.CheckListRequest;
 
 
 @RestController
@@ -42,14 +45,50 @@ public class TaskController {
 	public String createTask(@RequestBody TaskRequest request){
 		System.out.println(" Rx task " + request.toString());
 		return service.createTask(request);
+		/*Eg Expected Json File from client
+		 {
+			"title": "Peter",
+			"receiver": ["S1234567A"],
+			"location": null,
+			"refid": "",
+			"checklist": [{"description":"task 1", "done":true}],
+			"duedate": ""
+}
+		 */
+		
 	}
 	@PostMapping("/addCommnet")
 	public List<Comment> addCommnet(@RequestBody CommentRequest request){
-		System.out.println(" Rx task " + request.toString());
 		return service.addComment(request);
-		
+		/* Eg Expected Json File from client
+		  {
+			"taskId": "5b74e607b684b82decc6a793",
+			"comment": "new comment added via postman"
+			}
+		 */
 		
 	}
+	@PostMapping("addMember")
+	public void addMember(@RequestBody MemberRequest request){
+		service.addMember(request);
+		/* Eg Expected Json File from client
+		  {
+			"taskId": "5b74e607b684b82decc6a793",
+			"users": ["S123456C", "S1234567D"]
+			}
+		 */
+	}
 
+	@PostMapping("updateCheckList")
+	public List<CheckList> updateCheckList(@RequestBody CheckListRequest request){
+		return service.updateCheckList(request);
+		/* Eg Expected Json File from client
+		  {
+			"taskId": "5b74e607b684b82decc6a793",
+			"checklists": [{"description":"update something", "done":false},
+						   {"description":"update something", "done":true}]
+			}
+		 */
+	}
 
 }
