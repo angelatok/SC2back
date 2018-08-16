@@ -1,18 +1,13 @@
 package sg.com.item.entity;
 
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.auditing.DateTimeProvider;
+import java.util.Date;
 
 import lombok.Data;
-import sg.com.audit.Audit;
 
 @Data
 public class Comment {
-	//@CreatedBy
 	private String createdBy;
-	//@CreatedDate
-	private DateTimeProvider createDate;
+	private Date createDate;
 	
 	private String comment;
 	

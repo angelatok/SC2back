@@ -1,4 +1,4 @@
-package sg.com.item.requset;
+package sg.com.item.request;
 
 import java.util.Date;
 import java.util.List;
@@ -9,7 +9,7 @@ import lombok.Data;
 import sg.com.item.entity.CheckList;
 
 @Data
-public class Task {
+public class TaskRequest {
 
 	private String title;
 	private List<String> receiver; 	//ic

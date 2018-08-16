@@ -1,4 +1,4 @@
-package sg.com.item;
+package sg.com.item.task;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,7 +11,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import sg.com.item.requset.Task;
+import sg.com.item.IItemRepos;
+import sg.com.item.Item;
+import sg.com.item.entity.Comment;
+import sg.com.item.request.CommentRequest;
+import sg.com.item.request.TaskRequest;
 
 
 @RestController
@@ -35,13 +39,17 @@ public class TaskController {
 		return repos.findByWsid(id);
 	}
 	@PostMapping("/createTask")
-	public String createTask(@RequestBody Task task){
-		System.out.println(" Rx task " + task.toString());
-		return service.createTask(task);
+	public String createTask(@RequestBody TaskRequest request){
+		System.out.println(" Rx task " + request.toString());
+		return service.createTask(request);
+	}
+	@PostMapping("/addCommnet")
+	public List<Comment> addCommnet(@RequestBody CommentRequest request){
+		System.out.println(" Rx task " + request.toString());
+		return service.addComment(request);
 		
 		
 	}
-
 
 
 }
