@@ -3,7 +3,6 @@ package sg.com.item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import sg.com.item.entity.Item;
 import sg.com.item.requset.Task;
  
 @Service

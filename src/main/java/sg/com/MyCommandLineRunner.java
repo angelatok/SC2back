@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -14,10 +13,10 @@ import org.springframework.stereotype.Component;
 import sg.com.account.IAccountRepos;
 import sg.com.account.User;
 import sg.com.item.IItemRepos;
+import sg.com.item.Item;
 import sg.com.item.entity.CheckList;
 import sg.com.item.entity.Comment;
 import sg.com.item.entity.EStatus;
-import sg.com.item.entity.Item;
 import sg.com.workspace.IWorkspaceRepo;
 import sg.com.workspace.Workspace;
 

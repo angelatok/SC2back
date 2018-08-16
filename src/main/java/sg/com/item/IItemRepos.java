@@ -5,8 +5,6 @@ import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import sg.com.item.entity.Item;
-
 public interface IItemRepos extends MongoRepository<Item, String>{
 	List<Item> findByWsid(String wsid);
 	
