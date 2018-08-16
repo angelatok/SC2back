@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import sg.com.item.IItemRepos;
 import sg.com.item.Item;
 import sg.com.item.entity.Comment;
-import sg.com.item.request.CommentRequest;
-import sg.com.item.request.TaskRequest;
+import sg.com.item.task.request.CommentRequest;
+import sg.com.item.task.request.TaskRequest;
  
 @Service
 public class TaskService {

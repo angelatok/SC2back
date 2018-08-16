@@ -1,4 +1,4 @@
-package sg.com.item.request;
+package sg.com.item.task.request;
 
 import java.util.Date;
 import java.util.List;
