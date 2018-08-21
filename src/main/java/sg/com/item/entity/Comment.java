@@ -12,8 +12,15 @@ public class Comment {
 	private String comment;
 	
 	
-	public Comment( String comment) {
+	public Comment( ) {
 		super();
+	}
+
+
+	public Comment(String createdBy, Date createDate, String comment) {
+		super();
+		this.createdBy = createdBy;
+		this.createDate = createDate;
 		this.comment = comment;
 	}
 	

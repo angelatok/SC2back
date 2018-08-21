@@ -1,6 +1,7 @@
 package sg.com.item.task;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,10 +12,11 @@ import sg.com.item.IItemRepos;
 import sg.com.item.Item;
 import sg.com.item.entity.CheckList;
 import sg.com.item.entity.Comment;
+import sg.com.item.entity.ETopicType;
+import sg.com.item.task.request.CheckListRequest;
 import sg.com.item.task.request.CommentRequest;
 import sg.com.item.task.request.MemberRequest;
 import sg.com.item.task.request.TaskRequest;
-import sg.com.item.task.request.CheckListRequest;
  
 @Service
 public class TaskService {
@@ -28,26 +30,40 @@ public class TaskService {
 		item.setRefid(request.getRefid());
 		item.setChecklist(request.getChecklist());
 		item.setDueDate(item.getDueDate());
+		if(request.getType().equalsIgnoreCase("task")){
+			item.setType(ETopicType.TASK);
+		}
+		
 		Item saveItem = repo.save(item);
+		System.out.println("Item save " + saveItem.toString());
 		return saveItem.getId();
 	}
 	
 	public List<Comment> addComment(CommentRequest request){
 		String id = request.getTaskId();
+		String commentToAdd = request.getComment();
 		
-		Item task = repo.findById(id).get(); //TODO : check if task is valid
+		Item task = repo.findById(id).get(); 
+	
+		List<Comment> commentList = task.getComments();
+		if (commentList == null ){
+			commentList = new ArrayList<Comment>();
+		}
 		
-		List<Comment> returnComment = task.getComments();
-		Comment newComment = new Comment(request.getComment());
+		Comment newComment = new Comment();
 		newComment.setCreateDate(Date.from(Instant.now()));
 		//TODO : Use spring security to get the context information
 		newComment.setCreatedBy("SomeBody");
-		returnComment.add(newComment);
+		newComment.setComment(commentToAdd);
 		
+		commentList.add(newComment);
+		task.setComments(commentList);
 		repo.save(task);
-		returnComment = task.getComments();
-		return returnComment;
+		commentList = task.getComments();
+		System.out.println(" return all comments from add service " + commentList.toString());
+		return commentList;
 	}
+	
 	public void addMember(MemberRequest request){
 		String id = request.getTaskId();
 		List<String> newReceiver = request.getUsers();
@@ -67,6 +83,7 @@ public class TaskService {
 		repo.save(task);
 		
 	}
+
 	public List<CheckList> updateCheckList(CheckListRequest request){
 		String id = request.getTaskId();
 		List<CheckList> checklist = request.getChecklists();

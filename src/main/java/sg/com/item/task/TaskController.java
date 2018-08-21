@@ -3,6 +3,8 @@ package sg.com.item.task;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,10 +17,10 @@ import sg.com.item.IItemRepos;
 import sg.com.item.Item;
 import sg.com.item.entity.CheckList;
 import sg.com.item.entity.Comment;
+import sg.com.item.task.request.CheckListRequest;
 import sg.com.item.task.request.CommentRequest;
 import sg.com.item.task.request.MemberRequest;
 import sg.com.item.task.request.TaskRequest;
-import sg.com.item.task.request.CheckListRequest;
 
 
 @RestController
@@ -41,9 +43,23 @@ public class TaskController {
 	public List<Item> getTaskbyWsid(@PathVariable("wsid") String id){
 		return repos.findByWsid(id);
 	}
+	@GetMapping("/comments/{tid}/{skipSize}/{pageSize}")
+	public List<Item> getComment(@PathVariable("tid") String id,
+									@PathVariable("skipSize") Integer skipSize,
+									@PathVariable("pageSize") Integer pageSize){
+		
+		System.out.println("page number  = " + skipSize);
+		System.out.println("page  size    = " + pageSize);
+		/*List<Item> commentList = repos.findComment(pageNumber, pageSize, id);
+		int i = 0;
+		for(Comment c : commentList){
+			System.out.println(i++ + " Comments : " + c.toString());
+		}*/
+		return repos.findComment( skipSize, pageSize, id);
+	}
+	
 	@PostMapping("/createTask")
-	public String createTask(@RequestBody TaskRequest request){
-		System.out.println(" Rx task " + request.toString());
+	public String createTask(@Valid @RequestBody TaskRequest request){
 		return service.createTask(request);
 		/*Eg Expected Json File from client
 		 {
@@ -57,8 +73,9 @@ public class TaskController {
 		 */
 		
 	}
+	
 	@PostMapping("/addCommnet")
-	public List<Comment> addCommnet(@RequestBody CommentRequest request){
+	public List<Comment> addCommnet(@Valid @RequestBody CommentRequest request){
 		return service.addComment(request);
 		/* Eg Expected Json File from client
 		  {

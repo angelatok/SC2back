@@ -102,7 +102,9 @@ public class MyCommandLineRunner implements CommandLineRunner{
 		cl1.setDone(false);
 		List l2 = Arrays.asList(cl1);
 		t1.setChecklist(l2);
-		Comment cm1 = new Comment("my comment");
+		
+		Comment cm1 = new Comment();
+		cm1.setComment("Comment added : "  + Instant.now());
 		List l3 = Arrays.asList(cm1);
 		t1.setComments(l3);
 		itemRepo.save(t1);
