@@ -1,4 +1,4 @@
-package sg.com.item.task.validation;
+package sg.com.item.validation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

@@ -1,9 +1,9 @@
-package sg.com.item.task.request;
+package sg.com.item.request;
 
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
-import sg.com.item.task.validation.IsCorrectId;
+import sg.com.item.validation.IsCorrectId;
 
 @Data
 public class CommentRequest {

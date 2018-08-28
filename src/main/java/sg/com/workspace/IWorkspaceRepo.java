@@ -5,15 +5,17 @@ import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface IWorkspaceRepo extends MongoRepository<Workspace, String> {
+public interface IWorkspaceRepo extends MongoRepository<WorkspaceModel, String> {
 	
 	@Override
-	List<Workspace> findAll();
+	List<WorkspaceModel> findAll();
+	
+	List<WorkspaceModel> findByWsName(String name);
 	
 	@Override
-	Optional<Workspace> findById(String id);
+	Optional<WorkspaceModel> findById(String id);
 	
-	List<Workspace> findByUserIdIn(List<String> members);
+	List<WorkspaceModel> findByUserIdIn(List<String> members);
 	
 	
 }

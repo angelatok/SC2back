@@ -1,4 +1,4 @@
-package sg.com.item.task.validation;
+package sg.com.item.validation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -12,9 +12,9 @@ import javax.validation.Payload;
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Constraint(validatedBy = {IsCorrectIdValidator.class})
-public @interface IsCorrectId {
-	String message() default "Id is not available !";
+@Constraint(validatedBy = {IsCorrectTypeValidator.class})
+public @interface IsCorrectType {
+	String message() default "Type is incorrect !";
 	Class<?>[] groups() default {};
 	Class<? extends Payload>[] payload() default {};
 

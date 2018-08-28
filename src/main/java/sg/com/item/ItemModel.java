@@ -8,6 +8,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
 import sg.com.item.entity.CheckList;
@@ -16,7 +17,8 @@ import sg.com.item.entity.EStatus;
 import sg.com.item.entity.ETopicType;
 
 @Data
-public class Item {
+@Document
+public class ItemModel {
 	
 	@Id
 	private String id;
@@ -30,7 +32,7 @@ public class Item {
 	private String title;
 	private String detail;
 	private GeoJsonPoint location;
-	private String wsid;
+	private String wsname;
 	private ETopicType type;
 	
 	
@@ -39,13 +41,13 @@ public class Item {
 	private Date DueDate;
 	private String refid;	// ref id of incident or issue or task 
 	
-	private List<String> assignees; //  ic of accountuser
+	//private List<String> assignees; //  ic of accountuser
 	private List<CheckList> checklist;
 	private List<Comment> comments;
 	private EStatus levelOfIncident; // HML
 	
 	
-	public Item() {
+	public ItemModel() {
 		super();
 		
 	}

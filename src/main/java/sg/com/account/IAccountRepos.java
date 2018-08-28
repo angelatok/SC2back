@@ -5,10 +5,10 @@ import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface IAccountRepos extends MongoRepository<User, String>{
+public interface IAccountRepos extends MongoRepository<UserModel, String>{
 	@Override
-	List<User> findAll();
+	List<UserModel> findAll();
 	
 	@Override
-	Optional<User> findById(String id);
+	Optional<UserModel> findById(String id);
 }

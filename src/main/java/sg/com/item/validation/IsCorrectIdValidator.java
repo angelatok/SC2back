@@ -1,4 +1,4 @@
-package sg.com.item.task.validation;
+package sg.com.item.validation;
 
 import java.util.Optional;
 
@@ -8,7 +8,7 @@ import javax.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import sg.com.item.IItemRepos;
-import sg.com.item.Item;
+import sg.com.item.ItemModel;
 
 public class IsCorrectIdValidator implements ConstraintValidator<IsCorrectId, String >{
 
@@ -20,14 +20,16 @@ public class IsCorrectIdValidator implements ConstraintValidator<IsCorrectId, St
 
 	@Override
 	public boolean isValid(String id, ConstraintValidatorContext context) {
-		if(id == null) return false;
+		/*context.disableDefaultConstraintViolation();
+		context.buildConstraintViolationWithTemplate("id not available" + id)
+		.addConstraintViolation();*/
 		
-		Optional<Item> task = repo.findById(id); 
-		if (task.isPresent()){
-			return true;
+		if(id == null) {
+			return false;
 		}
 		
-		return false;
+		Optional<ItemModel> task = repo.findById(id); 
+		return task.isPresent();
 	}
 
 

@@ -1,4 +1,4 @@
-package sg.com.item.task.validation;
+package sg.com.workspace.validate;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -12,9 +12,9 @@ import javax.validation.Payload;
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Constraint(validatedBy = {IsCorrectTypeValidator.class})
-public @interface IsCorrectType {
-	String message() default "Type is incorrect !";
+@Constraint(validatedBy = {IsUniqueWsNameValidator.class})
+public @interface IsUniqueWsName {
+	String message() default "Id already used !";
 	Class<?>[] groups() default {};
 	Class<? extends Payload>[] payload() default {};
 

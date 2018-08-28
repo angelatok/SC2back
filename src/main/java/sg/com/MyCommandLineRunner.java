@@ -11,14 +11,15 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import sg.com.account.IAccountRepos;
-import sg.com.account.User;
+import sg.com.account.UserModel;
 import sg.com.item.IItemRepos;
-import sg.com.item.Item;
+import sg.com.item.ItemModel;
 import sg.com.item.entity.CheckList;
 import sg.com.item.entity.Comment;
 import sg.com.item.entity.EStatus;
+import sg.com.item.entity.ETopicType;
 import sg.com.workspace.IWorkspaceRepo;
-import sg.com.workspace.Workspace;
+import sg.com.workspace.WorkspaceModel;
 
 @Component
 public class MyCommandLineRunner implements CommandLineRunner{
@@ -35,21 +36,25 @@ public class MyCommandLineRunner implements CommandLineRunner{
 		
 		createUser();
 		createWorkspace();
-		createTask();
+		createItem(ETopicType.TASK, "MyTask", "w1" );
+		createItem(ETopicType.INCIDENT, "MyIncident", "w1" );
+		createItem(ETopicType.ISSUE, "MyIssue", "w2" );
+		createItem(ETopicType.POST, "MyPost", "w2" );
+
 		UpdateTask();
 	}
 	
 	public void createUser(){
 		
-		User u1 = new User( "Amelia",  "S1234567A",  "Project Manager",  "Amelia@com.sg",  "CompanyA",  "img",  1234567);
-		User u2 = new User( "Bella",  "S1234567B",  "Project Manager",  "Bella@com.sg",  "CompanyB",  "img",  1234567);
-		User u3 = new User( "Claire",  "S1234567C",  "Team Lead",  "Claire@com.sg",  "CompanyA",  "img",  1234567);
-		User u4 = new User( "Daniel",  "S1234567D",  "Team Lead",  "Daniel@com.sg",  "Companyb",  "img",  1234567);
-		User u5 = new User( "Ethan",  "S1234567E",  "Developer",  "Ethan@com.sg",  "CompanyA",  "img",  1234567);
-		User u6 = new User( "Faye",  "S1234567F",  "Developer",  "Faye@com.sg",  "CompanyA",  "img",  1234567);
-		User u7 = new User( "Gabby",  "S1234567G",  "Developer",  "Gabby@com.sg",  "CompanyB",  "img",  1234567);
-		User u8 = new User( "Henry",  "S1234567H",  "Developer",  "Henry@com.sg",  "CompanyB",  "img",  1234567);
-		User u9 = new User( "Isaac",  "S1234567I",  "Administrator",  "Isaac@com.sg",  "CompanyC",  "img",  1234567);
+		UserModel u1 = new UserModel( "Amelia", "S1234567A", "Project Manager",  "Amelia@com.sg",  "CompanyA",  "img",  1234567);
+		UserModel u2 = new UserModel( "Bella",  "S1234567B",  "Project Manager",  "Bella@com.sg",  "CompanyB",  "img",  1234567);
+		UserModel u3 = new UserModel( "Claire",  "S1234567C",  "Team Lead",  "Claire@com.sg",  "CompanyA",  "img",  1234567);
+		UserModel u4 = new UserModel( "Daniel",  "S1234567D",  "Team Lead",  "Daniel@com.sg",  "Companyb",  "img",  1234567);
+		UserModel u5 = new UserModel( "Ethan",  "S1234567E",  "Developer",  "Ethan@com.sg",  "CompanyA",  "img",  1234567);
+		UserModel u6 = new UserModel( "Faye",  "S1234567F",  "Developer",  "Faye@com.sg",  "CompanyA",  "img",  1234567);
+		UserModel u7 = new UserModel( "Gabby",  "S1234567G",  "Developer",  "Gabby@com.sg",  "CompanyB",  "img",  1234567);
+		UserModel u8 = new UserModel( "Henry",  "S1234567H",  "Developer",  "Henry@com.sg",  "CompanyB",  "img",  1234567);
+		UserModel u9 = new UserModel( "Isaac",  "S1234567I",  "Administrator",  "Isaac@com.sg",  "CompanyC",  "img",  1234567);
 		accountRepo.save(u1);
 		accountRepo.save(u2);
 		accountRepo.save(u3);
@@ -77,26 +82,33 @@ public class MyCommandLineRunner implements CommandLineRunner{
 		l2.add("S1234567H");
 		l2.add("S1234567I");
 
-		Workspace w1 = new Workspace("w1", l1, "S1234567A");
-		Workspace w2 = new Workspace("w2", l2, "S1234567B");
+		WorkspaceModel w1 = new WorkspaceModel("w1", l1, "S1234567A");
+		
+		WorkspaceModel w2 = new WorkspaceModel("w2", l2, "S1234567B");
 		workspaceRepo.save(w1);
 		workspaceRepo.save(w2);
 	}
 
-	public void createTask(){
-		Item t1 = new Item();
-		t1.setTitle("Task1");
+	
+	public void createItem(ETopicType type, String title, String workspace){
+		ItemModel t1 = new ItemModel();
 		//t1.setDetail(detail); // base on ui design task does not have detail
 		//t1.setLocation(location); 
-		t1.setWsid("w1"); 
-		//t1.setType(ETopicType.TASK); should be handle by controller
+		//t1.setTag();
+	
+		t1.setTitle(title);
+		t1.setWsname(workspace); 
+		t1.setType(type); 
+	
 		List l1 = new ArrayList();
 		l1.add("S1234567C");
+		l1.add("S1234567B");
+		
 		t1.setReceiver(l1);
 		t1.setStatus(EStatus.NEW);
 		t1.setDueDate(Date.from(Instant.now()));
-		//t1.setTag();
-		t1.setAssignees(l1);
+		//t1.setAssignees(l1);
+		
 		CheckList cl1 = new CheckList();
 		cl1.setDescription("do somthing now");
 		cl1.setDone(false);
@@ -110,8 +122,8 @@ public class MyCommandLineRunner implements CommandLineRunner{
 		itemRepo.save(t1);
 	}
 	public void UpdateTask(){
-		List<Item> list = itemRepo.findByTitle("Task1");
-		Item i = list.get(0);
+		List<ItemModel> list = itemRepo.findByTitle("MyTask");
+		ItemModel i = list.get(0);
 		i.setTitle("Task1a");
 		itemRepo.save(i);
 	}
