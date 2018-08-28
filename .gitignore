@@ -27,3 +27,5 @@
 .settings/
 log/
 target/
+
+bin/
