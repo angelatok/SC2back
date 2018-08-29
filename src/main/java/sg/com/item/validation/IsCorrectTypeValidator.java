@@ -9,9 +9,7 @@ public class IsCorrectTypeValidator implements ConstraintValidator<IsCorrectType
 	public void initialize(IsCorrectType constraintAnnotation){}
 
 	@Override
-	public boolean isValid(String type, ConstraintValidatorContext context) {
-		if(type == null) return false;
-		
+	public boolean isValid(String type, ConstraintValidatorContext context) {		
 		if( type.equalsIgnoreCase("Task") 
 				|| type.equalsIgnoreCase("Incident") 
 				|| type.equalsIgnoreCase("Issue") 

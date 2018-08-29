@@ -7,7 +7,8 @@ import sg.com.item.validation.IsCorrectId;
 
 @Data
 public class CommentRequest {
-	@IsCorrectId
+	@NotNull
+	@IsCorrectId(message = "{Id not found}")
 	private String taskId;
 	@NotNull
 	private String comment;

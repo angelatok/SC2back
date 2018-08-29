@@ -20,7 +20,6 @@ public class IsUniqueWsNameValidator implements ConstraintValidator<IsUniqueWsNa
 
 	@Override
 	public boolean isValid(String name, ConstraintValidatorContext context) {
-		if(name == null) return false;
 		
 		List<WorkspaceModel> ws = service.getWorkspaceByName(name); 
 		if (ws.isEmpty()){

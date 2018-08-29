@@ -95,7 +95,8 @@ public class WorkspaceController {
 	/**
 	 * 
 	 * @param 	requestObj	Json object below
-	 * @return	HttpStats 202 Accepted Or 400 Bad request when id is already used.
+	 * @return	HttpStatus 202 Accepted 
+ 	 *			HttpStatus 400 Bad Request when id is already used.
 	 * 
 	 * { 
 			"wsName": "w3",
