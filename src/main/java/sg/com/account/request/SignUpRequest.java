@@ -2,15 +2,14 @@ package sg.com.account.request;
 
 import javax.validation.constraints.NotNull;
 
-import org.springframework.data.annotation.Id;
-
 import lombok.Data;
+import sg.com.account.validation.IsValidPassword;
 
 
 @Data
-public class UserRequest {
+public class SignUpRequest {
 	@NotNull
-	private String id;  //ic number
+	private String ic;  //ic number
 	@NotNull
 	private String name;
 	@NotNull
@@ -21,16 +20,20 @@ public class UserRequest {
 	private int hp; 
 	@NotNull
 	private String organization;
+	@NotNull
+	//@IsValidPassword
+	private String password;
+	// 8 char. min 1 uppercase. min 1 lowercase. min 1 digit. min 1 symbol. no whitespace
 	
 	private String imgurl; //photo
 	
-	public UserRequest(){
+	public SignUpRequest(){
 		super();
 	}
-	public UserRequest(String name, String id, String designation, String email, String organization, String imgurl, int hp) {
+	public SignUpRequest(String name, String id, String designation, String email, String organization, String imgurl, int hp) {
 		super();
 		this.name = name;
-		this.id = id;
+		this.ic = id;
 		this.designation = designation;
 		this.email = email;
 		this.organization = organization;

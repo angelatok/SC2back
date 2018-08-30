@@ -1,18 +1,23 @@
 package sg.com.account;
 
+import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.Data;
 
 @Document
 @Data
-public class UserModel {
+public class UserModel implements UserDetails{
 	@Id
-	private String id;  //ic number
+	private String id;  //ic number\
+	private String icNumber;
 	private String name;
 	private String designation;
 	private String email;
@@ -22,18 +27,51 @@ public class UserModel {
 	@CreatedDate
 	private Date createdDate;
 	
-	public UserModel(){
-		super();
+	// UserDetails
+	private  Collection<? extends GrantedAuthority> authorities;
+	private String password;
+
+	
+	// UserDetails 
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return authorities;
+
 	}
-	public UserModel(String name, String id, String designation, String email, String organization, String imgurl, int hp) {
-		super();
-		this.name = name;
-		this.id = id;
-		this.designation = designation;
-		this.email = email;
-		this.organization = organization;
-		this.imgurl = imgurl;
-		this.hp = hp;
+	public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+		this.authorities = authorities;
+	}
+	@Override
+	public String getPassword() {
+		return password;
+
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	@Override
+	public String getUsername() {
+		
+		return this.name;
+	}
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+
+	}
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+
+	}
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+
+	}
+	@Override
+	public boolean isEnabled() {
+		return true;
 	}
 	
 

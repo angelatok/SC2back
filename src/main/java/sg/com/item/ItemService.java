@@ -9,8 +9,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import sg.com.account.UserService;
 import sg.com.account.UserModel;
-import sg.com.account.request.AccountService;
 import sg.com.item.entity.CheckList;
 import sg.com.item.entity.Comment;
 import sg.com.item.entity.ETopicType;
@@ -22,7 +22,7 @@ import sg.com.item.request.MemberRequest;
 @Service
 public class ItemService {
 	@Autowired IItemRepos repos;
-	@Autowired AccountService accService;
+	@Autowired UserService accService;
 
 	public List<ItemModel> getALL(){
 		return repos.findAll();
@@ -105,14 +105,22 @@ public class ItemService {
 		List<String> receiver = task.getReceiver();
 		//TODO: check if membe is valid within Workspace before add.
 		
-		for(String memberid : requestReceiver){
-			Optional<UserModel> userlist = accService.getUser(memberid);
+		for(String icNumber : requestReceiver){
+			/*Optional<UserModel> userlist = accService.getUserByIc(icNumber);
 			if(!userlist.isPresent()){
 				return false; // Error trying to add user that is not available in userdb
+			}*/
+			
+			if(accService.isIcExists(icNumber)){
+				if(!(receiver.contains(icNumber))){ // not already added
+					receiver.add(icNumber);
+				}
+			}else{
+				return false;
 			}
-			if(!(receiver.contains(memberid))){
-				receiver.add(memberid);
-			}
+			/*if(!(receiver.contains(icNumber))){
+				receiver.add(icNumber);
+			}*/
 		}
 		task.setReceiver(receiver);
 		repos.save(task);

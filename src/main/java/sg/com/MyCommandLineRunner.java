@@ -8,9 +8,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import sg.com.account.IAccountRepos;
+import sg.com.account.IUserRepos;
 import sg.com.account.UserModel;
 import sg.com.item.IItemRepos;
 import sg.com.item.ItemModel;
@@ -23,10 +25,11 @@ import sg.com.workspace.WorkspaceModel;
 
 @Component
 public class MyCommandLineRunner implements CommandLineRunner{
-	@Autowired IAccountRepos accountRepo;
+	@Autowired IUserRepos accountRepo;
 	@Autowired IWorkspaceRepo workspaceRepo;
 	@Autowired IItemRepos itemRepo;
-	
+	@Autowired PasswordEncoder passwordEncoder;
+
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -43,18 +46,18 @@ public class MyCommandLineRunner implements CommandLineRunner{
 
 		UpdateTask();
 	}
-	
+
 	public void createUser(){
 		
-		UserModel u1 = new UserModel( "Amelia", "S1234567A", "Project Manager",  "Amelia@com.sg",  "CompanyA",  "img",  1234567);
-		UserModel u2 = new UserModel( "Bella",  "S1234567B",  "Project Manager",  "Bella@com.sg",  "CompanyB",  "img",  1234567);
-		UserModel u3 = new UserModel( "Claire",  "S1234567C",  "Team Lead",  "Claire@com.sg",  "CompanyA",  "img",  1234567);
-		UserModel u4 = new UserModel( "Daniel",  "S1234567D",  "Team Lead",  "Daniel@com.sg",  "Companyb",  "img",  1234567);
-		UserModel u5 = new UserModel( "Ethan",  "S1234567E",  "Developer",  "Ethan@com.sg",  "CompanyA",  "img",  1234567);
-		UserModel u6 = new UserModel( "Faye",  "S1234567F",  "Developer",  "Faye@com.sg",  "CompanyA",  "img",  1234567);
-		UserModel u7 = new UserModel( "Gabby",  "S1234567G",  "Developer",  "Gabby@com.sg",  "CompanyB",  "img",  1234567);
-		UserModel u8 = new UserModel( "Henry",  "S1234567H",  "Developer",  "Henry@com.sg",  "CompanyB",  "img",  1234567);
-		UserModel u9 = new UserModel( "Isaac",  "S1234567I",  "Administrator",  "Isaac@com.sg",  "CompanyC",  "img",  1234567);
+		UserModel u1 = createUserService( "Amelia", "S1234567A", "Project Manager",  "Amelia@com.sg",  "CompanyA");
+		UserModel u2 = createUserService( "Bella",  "S1234567B",  "Project Manager",  "Bella@com.sg",  "CompanyB");
+		UserModel u3 = createUserService( "Claire",  "S1234567C",  "Team Lead",  "Claire@com.sg",  "CompanyA");
+		UserModel u4 = createUserService( "Daniel",  "S1234567D",  "Team Lead",  "Daniel@com.sg",  "Companyb");
+		UserModel u5 = createUserService( "Ethan",  "S1234567E",  "Developer",  "Ethan@com.sg",  "CompanyA");
+		UserModel u6 = createUserService( "Faye",  "S1234567F",  "Developer",  "Faye@com.sg",  "CompanyA");
+		UserModel u7 = createUserService( "Gabby",  "S1234567G",  "Developer",  "Gabby@com.sg",  "CompanyB");
+		UserModel u8 = createUserService( "Henry",  "S1234567H",  "Developer",  "Henry@com.sg",  "CompanyB");
+		UserModel u9 = createUserService( "Isaac",  "S1234567I",  "Administrator",  "Isaac@com.sg",  "CompanyC");
 		accountRepo.save(u1);
 		accountRepo.save(u2);
 		accountRepo.save(u3);
@@ -67,6 +70,20 @@ public class MyCommandLineRunner implements CommandLineRunner{
 
 	}
 
+	public UserModel createUserService(String name, String ic, String designation, 
+			String email, String organization ){
+		UserModel member = new UserModel();
+		member.setIcNumber(ic);
+		member.setDesignation(designation);
+		member.setEmail(email);
+		member.setName(name);
+		member.setOrganization(organization);
+		
+		member.setHp(1234567);
+		member.setPassword(passwordEncoder.encode("pass"));
+		member.setAuthorities(AuthorityUtils.createAuthorityList("ROLE_USER"));
+		return member;
+	}
 	public void createWorkspace(){
 		List<String> l1 = new ArrayList<String>();
 		l1.add("S1234567A");
