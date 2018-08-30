@@ -5,12 +5,10 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +25,6 @@ public class UserPublicController {
 	@Autowired AuthenticationManager authenticationManager;
 	@Autowired JwtTokenProvider tokenProvider;
 	@Autowired UserService service;
-
 	
 	/**
 	 * 
@@ -56,7 +53,6 @@ public class UserPublicController {
 		}
 	}*/
 	@PostMapping("/signup")
-	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest){
 	
 		
@@ -67,7 +63,20 @@ public class UserPublicController {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		
 	}
-	
+	/**
+	 * 
+	 * @param loginRequest   http://localhost:8080/auth/signin 
+	  		{
+				"username":"Amelia",
+				"password":"pass"
+			}
+	 * @return 	HttpStatus 401 Unauthorized
+	 * 			HttpStatus 200 OK with 
+	 			{
+    				"accessToken": "eyJhbGciOiJIUzI1NiJ9.....",
+    				"tokenType": "Bearer"
+				}
+	 */
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest){
 		
@@ -84,21 +93,21 @@ public class UserPublicController {
 		return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
 	}
 	
-	/*@GetMapping(value="/logout")
-	public String logoutPage () {
+/*	@GetMapping(value="/logout")
+	public String logoutPage (HttpServletRequest request,HttpServletResponse response) {
 	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	    if (auth != null){    
+	    if (auth != null){   
+	    	System.out.println("trying to clear securityCOntext");
+            new SecurityContextLogoutHandler().setClearAuthentication(true);
+
 	       // new SecurityContextLogoutHandler().logout(request, response, auth);
 	        SecurityContextHolder.getContext().setAuthentication(null);
 	        SecurityContextHolder.clearContext();
-
-	    }
-	    
-	    
-	    return "logout success";//You can redirect wherever you want, but generally it's a good practice to show login screen again.
-	}
+	      }
+ 	    return "logout success";//You can redirect wherever you want, but generally it's a good practice to show login screen again.
+	}*/
 	
-	 */
+	 
 	/*@PostMapping(value = {"/logout"})
 	public String logoutDo(HttpServletRequest request,HttpServletResponse response){
 	HttpSession session= request.getSession(false);

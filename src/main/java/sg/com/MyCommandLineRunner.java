@@ -33,9 +33,9 @@ public class MyCommandLineRunner implements CommandLineRunner{
 	
 	@Override
 	public void run(String... args) throws Exception {
-	/*	accountRepo.deleteAll();
+		accountRepo.deleteAll();
 		workspaceRepo.deleteAll();
-		itemRepo.deleteAll();*/
+		itemRepo.deleteAll();
 		
 		createUser();
 		createWorkspace();
