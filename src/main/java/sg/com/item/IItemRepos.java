@@ -8,6 +8,8 @@ import org.springframework.data.mongodb.repository.Query;
 
 public interface IItemRepos extends MongoRepository<ItemModel, String>{
 
+	List<ItemModel> findAllByOrderByModifiedDateDesc();
+
 	@Query(value="{'type': 'TASK'}")
 	List<ItemModel> findAllTask();
 	

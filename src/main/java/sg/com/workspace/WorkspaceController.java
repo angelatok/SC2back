@@ -134,10 +134,10 @@ public class WorkspaceController {
 	 * @param 	wsid
 	 * @return 	HttpStats 202 Accepted Or 404 Not Found.
 	 */
-	@DeleteMapping("/{wsid}")
-	public ResponseEntity<Void>  deleteWorkspace(@PathVariable String wsid)
+	@DeleteMapping("/{wsname}")
+	public ResponseEntity<Void>  deleteWorkspace(@PathVariable String wsname)
 	{
-		if(service.deleteWorkspace(wsid)){
+		if(service.deleteWorkspace(wsname)){
 			return ResponseEntity.accepted().build();
 		}
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

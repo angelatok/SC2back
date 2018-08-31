@@ -39,6 +39,7 @@ public class UserPublicController {
 			"email": "zala@gmail.com",
 			"organization": "companyZ",
 			"hp": "91234567"
+			"password": "pass"
 		}
 	 */
 	/*@PostMapping("/adduser")
@@ -64,10 +65,10 @@ public class UserPublicController {
 		
 	}
 	/**
-	 * 
+	 *  login with email.
 	 * @param loginRequest   http://localhost:8080/auth/signin 
 	  		{
-				"username":"Amelia",
+				"email":"Amelia@com.sg",
 				"password":"pass"
 			}
 	 * @return 	HttpStatus 401 Unauthorized
@@ -83,10 +84,11 @@ public class UserPublicController {
 
 		Authentication authentication = authenticationManager.authenticate(
 										new UsernamePasswordAuthenticationToken(
-												loginRequest.getUsername(), 
+												loginRequest.getEmail(), 
 												loginRequest.getPassword()));
 		
-		System.out.println(" authentication " + authentication.getName());
+System.out.println(this.getClass().getSimpleName() + 
+							":  authentication = " + authentication.getName() );
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		String jwt = tokenProvider.gernateToken(authentication);
 		

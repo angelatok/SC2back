@@ -42,10 +42,8 @@ System.out.println(this.getClass().getName() + " user info  " + userPrincipal.ge
 		
 		
 		String jwt =  Jwts.builder()
-				//.setId(userPrincipal.getId())
-				//.setSubject(userPrincipal.getId())
-				.setId(userPrincipal.getName())
-				.setSubject(userPrincipal.getName())
+				.setId(userPrincipal.getEmail())
+				.setSubject(userPrincipal.getEmail())
 				.setIssuedAt(now)
 				.setNotBefore(now)
 				.setExpiration(expiryDate)
@@ -59,9 +57,9 @@ System.out.println(this.getClass().getName() + " user info  " + userPrincipal.ge
 				.parseClaimsJws(token)
 				.getBody();
 		
-		System.out.println(this.getClass().getName() + " id " + claims.getId());
-		System.out.println(this.getClass().getName() + " Subject  " + claims.getSubject());
-		System.out.println(this.getClass().getName() + " Exire " + claims.getExpiration());
+		System.out.println(this.getClass().getSimpleName() + " id " + claims.getId());
+		System.out.println(this.getClass().getSimpleName() + " Subject  " + claims.getSubject());
+		System.out.println(this.getClass().getSimpleName() + " Expire " + claims.getExpiration());
 
 		return claims.getSubject();
 	}

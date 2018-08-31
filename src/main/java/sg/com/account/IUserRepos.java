@@ -14,6 +14,7 @@ public interface IUserRepos extends MongoRepository<UserModel, String>{
 	*/
 	Optional<UserModel> findByIcNumber(String ic);
 	Optional<UserModel> findByName(String name);
+	Optional<UserModel> findByEmail(String email);
 	
 	Boolean existsByIcNumber(String ic);
 	//Boolean existsByName(String name);

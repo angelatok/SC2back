@@ -30,9 +30,14 @@ public class UserService {
 		return repos.existsByName(username);
 	}*/
 	public Optional<UserModel> getUserByName(String name){
-		System.out.println(this.getClass().getSimpleName() + " getUserByName : " + name);
+System.out.println(this.getClass().getSimpleName() + " getUserByName : " + name);
 		return repos.findByName(name);
 	}
+	
+	public Optional<UserModel> getUserByEmail(String email){
+		return repos.findByEmail(email);
+	}
+	
 	public Optional<UserModel> getUserByIc(String ic){
 		return repos.findByIcNumber(ic);
 	}

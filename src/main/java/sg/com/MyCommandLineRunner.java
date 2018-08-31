@@ -105,7 +105,6 @@ public class MyCommandLineRunner implements CommandLineRunner{
 		workspaceRepo.save(w1);
 		workspaceRepo.save(w2);
 	}
-
 	
 	public void createItem(ETopicType type, String title, String workspace){
 		ItemModel t1 = new ItemModel();

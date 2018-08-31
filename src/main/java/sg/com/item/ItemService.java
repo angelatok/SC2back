@@ -7,10 +7,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import sg.com.account.UserService;
-import sg.com.account.UserModel;
 import sg.com.item.entity.CheckList;
 import sg.com.item.entity.Comment;
 import sg.com.item.entity.ETopicType;
@@ -24,8 +25,9 @@ public class ItemService {
 	@Autowired IItemRepos repos;
 	@Autowired UserService accService;
 
+	
 	public List<ItemModel> getALL(){
-		return repos.findAll();
+		return repos.findAllByOrderByModifiedDateDesc();
 	}
 	public List<ItemModel> getAllTask(){
 		return repos.findAllTask();
@@ -85,8 +87,12 @@ public class ItemService {
 		
 		Comment newComment = new Comment();
 		newComment.setCreateDate(Date.from(Instant.now()));
-		//TODO : Use spring security to get the context information
-		newComment.setCreatedBy("SomeBody");
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if(auth == null){
+		  newComment.setCreatedBy("anonymous");
+		}
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		newComment.setCreatedBy(username);
 		newComment.setComment(commentToAdd);
 		
 		commentList.add(newComment);
