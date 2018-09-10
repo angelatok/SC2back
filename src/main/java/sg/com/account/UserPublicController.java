@@ -38,7 +38,7 @@ public class UserPublicController {
 			"designation": "admin",
 			"email": "zala@gmail.com",
 			"organization": "companyZ",
-			"hp": "91234567"
+			"hp": "91234567",
 			"password": "pass"
 		}
 	 */
