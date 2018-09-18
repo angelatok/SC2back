@@ -64,6 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				.and()
+			
 			/*.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 				//.logoutSuccessUrl("/login")
 				.and()*/
@@ -73,7 +74,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						"/**/*.png",
 						"/**/*.fig", 
 						"/**/*.svg", 
-						"/**/*.jpg", 
+						"/**/*.jpg",
+						"/**/*.jpeg",
 						"/**/*.css", 
 						"/**/*.js")
 					.permitAll()
